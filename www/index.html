@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pract 1</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+
+        header {
+            background-color: midnightblue;
+            height: 10%;
+            width: 100%;
+        }
+
+        .divPage {
+            height: 50%;
+        }
+
+        h1 {
+            margin-left: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+
+        input {
+            width: 20%;
+            margin: 4px 0;
+        }
+
+        button {
+            width: 15%;
+            height: 35px;
+            align-self: flex-end;
+            margin-right: 20px;
+
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        let users = {
+            "test": {
+                "email": "123@email.com",
+                "password": "test"
+            }
+        }
+
+        function register(username, password, confirmPassword, email) {
+            let emailExists = false;
+            for (i in users) {
+                if (users[i]["email"] === email) {
+                    emailExists = true;
+                }
+            }
+            if (username === "" || password === "" || confirmPassword === "" || email === "") {
+                alert("ERROR: completi tots els camps")
+            } else if (username in users) {
+                alert("ERROR: l'usuari ja existeix")
+            } else if (emailExists) {
+                alert("ERROR: l'email ja està registrat")
+            } else if (password !== confirmPassword) {
+                alert("ERROR: els camps Password i Confirm password no poden ser diferents")
+            } else if (password === confirmPassword) {
+                users[username] = {}
+                users[username]["email"] = email
+                users[username]["password"] = password;
+                alert("REGISTER COMPLETAT")
+            }
+        }
+
+        function login(username, password) {
+            if (username in users && users[username]["password"] == password) {
+                alert(`LOGIN CORRECTE DEL COMPTE AMB EMAIL ${users[username]["email"]}`);
+            } else {
+                alert("LOGIN INCORRECTE");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="divPage" id="Login">
+        <header></header>
+        <h1>Login</h1>
+        <form>
+            <div class="input-group">
+                <input type="text" name="login-user" id="login-user">
+                <label for="login-user">User</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="login-password" id="login-password">
+                <label for="login-password">Password</label>
+            </div>
+            <button onclick="login(document.getElementById('login-user').value, document.getElementById('login-password').value);return false;">login</button>
+        </form>
+    </div>
+    <div class="divPage">
+        <header></header>
+        <h1>Register</h1>
+        <form>
+            <div class="input-group">
+                <input type="text" name="user" id="reg-user">
+                <label for="user">User</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="reg-password">
+                <label for="password">Password</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="passwordConfirm" id="reg-passwordConfirm">
+                <label for="passwordConfirm">Confirm password</label>
+            </div>
+            <div class="input-group">
+                <input type="text" name="email" id="reg-email">
+                <label for="email">Email</label>
+            </div>
+            <button onclick="register(document.getElementById('reg-user').value, document.getElementById('reg-password').value, document.getElementById('reg-passwordConfirm').value, document.getElementById('reg-email').value);return false">Reg.</button>
+        </form>
+    </div>
+</body>
+</html>
